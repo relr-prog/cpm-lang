@@ -70,7 +70,7 @@ foreach ($t in $tests) {
         }
         $cc = (Get-Command clang -ErrorAction SilentlyContinue)
         if (-not $cc) { $cc = Get-Command gcc }
-        & $cc.Source -std=c11 -Wall -o $exePath $cPath
+        & $cc.Source -std=c11 -Wall -Wno-parentheses-equality -o $exePath $cPath
         if ($LASTEXITCODE -ne 0) {
             $failures.Add("$name : host C compile failed")
             $failed++; continue

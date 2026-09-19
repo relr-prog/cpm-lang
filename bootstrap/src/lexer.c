@@ -57,7 +57,7 @@ static TokenKind keyword(SV s) {
         { "i64", TT_I64 },   { "u8", TT_U8 },     { "u16", TT_U16 },
         { "u32", TT_U32 },   { "u64", TT_U64 },
         { "f32", TT_F32 },   { "f64", TT_F64 },
-        { "bool", TT_BOOL }, { "void", TT_VOID },
+        { "bool", TT_BOOL }, { "void", TT_VOID }, { "str", TT_STR },
     };
     for (size_t i = 0; i < sizeof(map) / sizeof(map[0]); i++) {
         if (sv_eq_cstr(s, map[i].kw)) return map[i].k;

@@ -15,6 +15,7 @@ const char *type_name(TyKind k) {
     case TY_BOOL: return "bool";
     case TY_STR: return "str";
     case TY_VOID: return "void";
+    case TY_ERROR: return "error";
     }
     return "?";
 }

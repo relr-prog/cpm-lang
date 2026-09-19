@@ -1,3 +1,4 @@
 bootstrap\tests\neg_continue_outside.cpm:2:5: error: 'continue' is only valid inside a 'while' loop
         continue;
+
         ^

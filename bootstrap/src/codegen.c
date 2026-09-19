@@ -25,6 +25,7 @@ static const char *c_type(Type t) {
     case TY_BOOL: return "bool";
     case TY_STR: return "const char *";
     case TY_VOID: return "void";
+    case TY_ERROR: return "void";
     }
     return "void";
 }

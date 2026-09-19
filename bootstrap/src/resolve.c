@@ -96,7 +96,9 @@ static bool scope_def(RC *rc, Scope *s, SV name, Type type, size_t pos) {
         }
     }
     vec_push(&s->names, sv_to_cstr_arena(rc->a, name));
-    vec_push(&s->types, type);
+    Type *slot = arena_alloc(rc->a, sizeof(Type), 8);
+    *slot = type;
+    vec_push(&s->types, slot);
     return true;
 }
 
@@ -142,7 +144,7 @@ static bool lookup_var(RC *rc, Scope *s, SV name, size_t pos, bool is_read,
     else
         diag_error(rc->d, pos, "use of undeclared %s '%.*s'",
                    is_read ? "variable" : "identifier", SV_ARG(name));
-    if (out_type) *out_type = (Type){ TY_VOID, 0 };
+    if (out_type) *out_type = (Type){ TY_ERROR, 0 };
     return false;
 }
 
@@ -150,6 +152,8 @@ static Type resolve_expr(RC *rc, Scope *s, Expr *e);
 
 static void check_expected(RC *rc, size_t pos, const char *context,
                            Type expected, Type got) {
+    if (expected.kind == TY_ERROR || got.kind == TY_ERROR)
+        return; /* suppress cascading diagnostics from recoverable errors */
     if (!type_eq(expected, got))
         diag_type_mismatch(rc, pos, context, expected, got);
 }
@@ -210,7 +214,7 @@ static Type resolve_call(RC *rc, Scope *s, Expr *e) {
 
     for (size_t i = 0; i < nargs; i++)
         resolve_expr(rc, s, vec_get(&e->as.call.args, i));
-    return (Type){ TY_VOID, 0 };
+    return (Type){ TY_ERROR, 0 };
 }
 
 static Type resolve_expr(RC *rc, Scope *s, Expr *e) {
@@ -237,6 +241,7 @@ static Type resolve_expr(RC *rc, Scope *s, Expr *e) {
 
     case EX_UNOP: {
         Type t = resolve_expr(rc, s, e->as.un.e);
+        if (t.kind == TY_ERROR) return t;
         if (e->as.un.op == UN_NEG) {
             if (!type_is_numeric(t))
                 diag_error(rc->d, e->pos,
@@ -257,6 +262,8 @@ static Type resolve_expr(RC *rc, Scope *s, Expr *e) {
     case EX_BINOP: {
         Type l = resolve_expr(rc, s, e->as.bin.l);
         Type r = resolve_expr(rc, s, e->as.bin.r);
+        if (l.kind == TY_ERROR) return l;
+        if (r.kind == TY_ERROR) return r;
         BinOpKind op = e->as.bin.op;
 
         switch (op) {

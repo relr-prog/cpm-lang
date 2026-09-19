@@ -8,7 +8,7 @@
 typedef enum {
     TY_I8, TY_I16, TY_I32, TY_I64,
     TY_U8, TY_U16, TY_U32, TY_U64,
-    TY_F32, TY_F64, TY_BOOL, TY_STR, TY_VOID,
+    TY_F32, TY_F64, TY_BOOL, TY_STR, TY_VOID, TY_ERROR,
 } TyKind;
 
 typedef struct {

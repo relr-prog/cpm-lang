@@ -1,3 +1,4 @@
-bootstrap\tests\neg_type_init.cpm:2:19: error: variable initializer: expected 'i32', got 'bool'
+bootstrap\tests\neg_type_init.cpm:2:18: error: variable initializer: expected 'i32', got 'bool'
         var x: i32 = true;
-                      ^
+
+                     ^

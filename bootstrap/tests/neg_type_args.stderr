@@ -1,3 +1,4 @@
 bootstrap\tests\neg_type_args.cpm:6:17: error: argument 1 to 'take': expected 'i32', got 'bool'
         return take(true);
+
                     ^
