@@ -55,7 +55,7 @@ struct Expr {
 
 /* ---------- Statements ---------- */
 typedef enum {
-    ST_BLOCK, ST_IF, ST_WHILE, ST_RETURN, ST_VAR, ST_ASSIGN, ST_EXPR,
+    ST_BLOCK, ST_IF, ST_WHILE, ST_BREAK, ST_CONTINUE, ST_RETURN, ST_VAR, ST_ASSIGN, ST_EXPR,
 } StmtKind;
 
 struct Stmt {
