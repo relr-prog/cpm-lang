@@ -14,6 +14,7 @@ typedef struct {
     Scope   *fn_scope;   /* root scope for current fn (params) */
     Scope   *scope;      /* current innermost scope */
     Type     cur_ret;    /* current function return type */
+    int      loop_depth; /* nested while depth */
 } RC;
 
 typedef struct { SV name; int arity; } Intrinsic;
@@ -171,7 +172,17 @@ static Stmt *resolve_stmt(RC *rc, Scope *s, Stmt *st) {
         return st;
     case ST_WHILE:
         resolve_expr(rc, s, st->as.whl.cond);
+        rc->loop_depth++;
         resolve_stmt(rc, s, st->as.whl.body);
+        rc->loop_depth--;
+        return st;
+    case ST_BREAK:
+        if (rc->loop_depth == 0)
+            diag_error(rc->d, st->pos, "'break' is only valid inside a 'while' loop");
+        return st;
+    case ST_CONTINUE:
+        if (rc->loop_depth == 0)
+            diag_error(rc->d, st->pos, "'continue' is only valid inside a 'while' loop");
         return st;
     case ST_VAR: {
         scope_def(rc, s, st->as.var.name, st->pos);
@@ -207,6 +218,7 @@ static void resolve_fn(RC *rc, Decl *fn) {
     rc->fn_scope = root;
     rc->scope = root;
     rc->cur_ret = fn->fn_ret;
+    rc->loop_depth = 0;
 
     for (size_t i = 0; i < fn->fn_params.len; i++) {
         Param *p = vec_get(&fn->fn_params, i);
