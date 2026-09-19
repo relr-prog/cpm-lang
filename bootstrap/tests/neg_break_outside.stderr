@@ -1,0 +1,3 @@
+bootstrap\tests\neg_break_outside.cpm:2:5: error: 'break' is only valid inside a 'while' loop
+        break;
+        ^
