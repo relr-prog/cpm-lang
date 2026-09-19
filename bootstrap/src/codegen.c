@@ -234,6 +234,12 @@ static void cg_stmt(CG *cg, Stmt *st, SB *out, int depth) {
         sb_appendcstr(out, ") ");
         cg_block(cg, st->as.whl.body, out, depth);
         break;
+    case ST_BREAK:
+        sb_appendcstr(out, "break;");
+        break;
+    case ST_CONTINUE:
+        sb_appendcstr(out, "continue;");
+        break;
     case ST_RETURN:
         sb_appendcstr(out, "return");
         if (st->as.ret.has_val) {
