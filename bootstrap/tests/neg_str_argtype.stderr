@@ -1,0 +1,3 @@
+bootstrap\tests\neg_str_argtype.cpm:3:26: error: argument 1 to 'str_len': expected 'str', got 'i32'
+        var x: i32 = str_len(42);
+                             ^

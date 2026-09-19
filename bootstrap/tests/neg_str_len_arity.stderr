@@ -1,0 +1,3 @@
+bootstrap\tests\neg_str_len_arity.cpm:3:18: error: call to intrinsic 'str_len' expects 1 argument, got 2
+        var x: i32 = str_len("a", "b");
+                     ^

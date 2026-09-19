@@ -19,19 +19,25 @@ typedef struct {
     int      loop_depth;
 } RC;
 
-typedef struct { SV name; int arity; Type arg_type; } Intrinsic;
+typedef struct { SV name; int arity; Type arg_type; Type ret; } Intrinsic;
 
 static const Intrinsic INTRINSICS[] = {
-    { { "print", 5 }, 1, { TY_STR, 0 } },
-    { { "println", 7 }, 1, { TY_STR, 0 } },
-    { { "print_i32", 9 }, 1, { TY_I32, 0 } },
-    { { "println_i32", 11 }, 1, { TY_I32, 0 } },
-    { { "print_i64", 9 }, 1, { TY_I64, 0 } },
-    { { "println_i64", 11 }, 1, { TY_I64, 0 } },
-    { { "print_f64", 9 }, 1, { TY_F64, 0 } },
-    { { "println_f64", 11 }, 1, { TY_F64, 0 } },
-    { { "print_bool", 10 }, 1, { TY_BOOL, 0 } },
-    { { "println_bool", 12 }, 1, { TY_BOOL, 0 } },
+    /* side-effecting print intrinsics (statement form) */
+    { { "print", 5 }, 1, { TY_STR, 0 }, { TY_VOID, 0 } },
+    { { "println", 7 }, 1, { TY_STR, 0 }, { TY_VOID, 0 } },
+    { { "print_i32", 9 }, 1, { TY_I32, 0 }, { TY_VOID, 0 } },
+    { { "println_i32", 11 }, 1, { TY_I32, 0 }, { TY_VOID, 0 } },
+    { { "print_i64", 9 }, 1, { TY_I64, 0 }, { TY_VOID, 0 } },
+    { { "println_i64", 11 }, 1, { TY_I64, 0 }, { TY_VOID, 0 } },
+    { { "print_f64", 9 }, 1, { TY_F64, 0 }, { TY_VOID, 0 } },
+    { { "println_f64", 11 }, 1, { TY_F64, 0 }, { TY_VOID, 0 } },
+    { { "print_bool", 10 }, 1, { TY_BOOL, 0 }, { TY_VOID, 0 } },
+    { { "println_bool", 12 }, 1, { TY_BOOL, 0 }, { TY_VOID, 0 } },
+    /* value-returning string intrinsics (expression form) */
+    { { "str_len", 7 }, 1, { TY_STR, 0 }, { TY_I32, 0 } },
+    { { "str_eq", 6 }, 2, { TY_STR, 0 }, { TY_BOOL, 0 } },
+    { { "str_ne", 6 }, 2, { TY_STR, 0 }, { TY_BOOL, 0 } },
+    { { "str_concat", 10 }, 2, { TY_STR, 0 }, { TY_STR, 0 } },
 };
 
 bool resolve_is_intrinsic(const SV name, int *arity) {
@@ -195,14 +201,12 @@ static Type resolve_call(RC *rc, Scope *s, Expr *e) {
         for (size_t i = 0; i < nargs; i++) {
             Expr *arg = vec_get(&e->as.call.args, i);
             Type got = resolve_expr(rc, s, arg);
-            if (i == 0 && intr->arity == 1) {
-                char context[128];
-                snprintf(context, sizeof(context), "argument 1 to '%.*s'",
-                         SV_ARG(callee));
-                check_expected(rc, arg->pos, context, intr->arg_type, got);
-            }
+            char context[128];
+            snprintf(context, sizeof(context), "argument %zu to '%.*s'",
+                     i + 1, SV_ARG(callee));
+            check_expected(rc, arg->pos, context, intr->arg_type, got);
         }
-        return (Type){ TY_VOID, 0 };
+        return intr->ret;
     }
 
     if (find_global_var(rc, callee))

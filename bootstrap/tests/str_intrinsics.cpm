@@ -1,0 +1,15 @@
+// string value intrinsics (expression form) -- cpm bootstrap
+fn main() -> i32 {
+    var s: str = "cpm-lang";
+    var len: i32 = str_len(s);
+    println_i32(len);
+    println_i32(str_len("hi"));
+    println_bool(str_eq(s, "cpm-lang"));
+    println_bool(str_eq(s, "nope"));
+    println_bool(str_ne(s, "nope"));
+    println_bool(str_ne(s, "cpm-lang"));
+    println(str_concat(s, "!"));
+    println(str_concat("a", "b"));
+    println_i32(str_len(""));
+    return 0;
+}

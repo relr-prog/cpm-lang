@@ -1,0 +1,5 @@
+// str_len expects exactly 1 argument, got 2
+fn main() -> i32 {
+    var x: i32 = str_len("a", "b");
+    return 0;
+}
