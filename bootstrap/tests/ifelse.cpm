@@ -1,0 +1,20 @@
+// if/else + else-if chains
+fn main() -> i32 {
+    var x: i32 = 5;
+    var r: i32 = 0;
+    if (x > 3) {
+        r = 10;
+    } else {
+        r = 20;
+    }
+    println_i32(r);
+
+    if (x > 100) {
+        println_i32(1);
+    } else if (x > 4) {
+        println_i32(2);
+    } else {
+        println_i32(3);
+    }
+    return 0;
+}

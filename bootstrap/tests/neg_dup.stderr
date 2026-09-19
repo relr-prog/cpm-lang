@@ -1,0 +1,3 @@
+bootstrap\tests\neg_dup.cpm:1:1: error: redefinition of 'dup'
+    fn dup() -> i32 {
+    ^

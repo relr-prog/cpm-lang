@@ -1,0 +1,12 @@
+bootstrap\tests\neg_unterminated.cpm:2:13: error: unterminated string literal
+        println("oops
+                ^
+bootstrap\tests\neg_unterminated.cpm:2:13: error: expected expression, found lexer error
+        println("oops
+                ^
+bootstrap\tests\neg_unterminated.cpm:3:5: error: expected ')', found 'return'
+        return 0;
+        ^
+bootstrap\tests\neg_unterminated.cpm:3:12: error: expected ';' after expression statement, found integer
+        return 0;
+               ^

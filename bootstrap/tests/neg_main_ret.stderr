@@ -1,0 +1,3 @@
+bootstrap\tests\neg_main_ret.cpm:1:1: error: entry point 'main' must return 'i32', got 'void'
+    fn main() -> void {
+    ^

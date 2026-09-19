@@ -1,0 +1,4 @@
+fn main() -> i32 {
+    println_i32(zz);
+    return 0;
+}

@@ -1,0 +1,20 @@
+# build artifacts
+/build-out/
+*.exe
+*.o
+*.obj
+*.pdb
+*.ilk
+*.gcda
+*.gcno
+
+# test artifacts
+_tmp/
+
+# editor
+.vscode/
+.idea/
+*.swp
+
+# archives etc
+*.zip

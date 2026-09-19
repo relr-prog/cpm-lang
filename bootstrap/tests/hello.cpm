@@ -1,0 +1,5 @@
+// hello world, C+- bootstrap subset
+fn main() -> i32 {
+    println("Hello, C+-!");
+    return 0;
+}

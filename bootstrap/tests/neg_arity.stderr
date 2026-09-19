@@ -1,0 +1,3 @@
+bootstrap\tests\neg_arity.cpm:6:17: error: call to 'add' expects 2 arguments, got 1
+        println_i32(add(1));
+                    ^

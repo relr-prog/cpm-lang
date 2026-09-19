@@ -1,0 +1,9 @@
+// boolean expressions + logical operators
+fn main() -> i32 {
+    println_bool(true && false);
+    println_bool(true || false);
+    println_bool(!(3 == 4));
+    println_bool(3 <= 3 && 4 > 3);
+    println_bool(3 != 3);
+    return 0;
+}

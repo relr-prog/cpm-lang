@@ -1,0 +1,7 @@
+// string escapes
+fn main() -> i32 {
+    println("tab\there");
+    println("quote\"s");
+    println("back\\slash");
+    return 0;
+}
