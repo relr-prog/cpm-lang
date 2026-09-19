@@ -1,0 +1,7 @@
+fn bad() -> i32 {
+    return true;
+}
+
+fn main() -> i32 {
+    return 0;
+}

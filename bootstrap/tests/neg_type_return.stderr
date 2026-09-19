@@ -1,0 +1,3 @@
+bootstrap\tests\neg_type_return.cpm:2:12: error: return value: expected 'i32', got 'bool'
+        return true;
+               ^

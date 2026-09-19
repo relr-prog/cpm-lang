@@ -51,6 +51,7 @@ static TokenKind keyword(SV s) {
     struct { const char *kw; TokenKind k; } map[] = {
         { "fn", TT_FN },     { "var", TT_VAR },   { "return", TT_RETURN },
         { "if", TT_IF },     { "else", TT_ELSE }, { "while", TT_WHILE },
+        { "break", TT_BREAK }, { "continue", TT_CONTINUE },
         { "true", TT_TRUE }, { "false", TT_FALSE },
         { "i8", TT_I8 },     { "i16", TT_I16 },   { "i32", TT_I32 },
         { "i64", TT_I64 },   { "u8", TT_U8 },     { "u16", TT_U16 },
@@ -334,6 +335,8 @@ const char *tok_kind_name(TokenKind k) {
     case TT_IF: return "'if'";
     case TT_ELSE: return "'else'";
     case TT_WHILE: return "'while'";
+    case TT_BREAK: return "'break'";
+    case TT_CONTINUE: return "'continue'";
     case TT_TRUE: return "'true'";
     case TT_FALSE: return "'false'";
     case TT_I8: return "type 'i8'";

@@ -11,7 +11,7 @@ typedef enum {
     TT_FLOAT, /* float literal */
     TT_STRING, /* "(escaped) string literal, no raw newline */
 
-    TT_FN, TT_VAR, TT_RETURN, TT_IF, TT_ELSE, TT_WHILE, TT_TRUE, TT_FALSE,
+    TT_FN, TT_VAR, TT_RETURN, TT_IF, TT_ELSE, TT_WHILE, TT_BREAK, TT_CONTINUE, TT_TRUE, TT_FALSE,
 
     TT_I8, TT_I16, TT_I32, TT_I64, TT_U8, TT_U16, TT_U32, TT_U64,
     TT_F32, TT_F64, TT_BOOL, TT_STR, TT_VOID,

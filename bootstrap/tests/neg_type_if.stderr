@@ -1,0 +1,3 @@
+bootstrap\tests\neg_type_if.cpm:2:9: error: 'if' condition: expected 'bool', got 'i32'
+        if (123) {
+            ^

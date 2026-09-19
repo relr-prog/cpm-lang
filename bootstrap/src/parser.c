@@ -326,6 +326,20 @@ static Stmt *parse_stmt(Parser *p) {
         return parse_while_stmt(p);
     case TT_RETURN:
         return parse_return_stmt(p);
+    case TT_BREAK: {
+        size_t pos = p->cur.pos;
+        p_advance(p);
+        Stmt *s = new_stmt(p, ST_BREAK, pos);
+        p_expect(p, TT_SEMI, "';' after 'break'");
+        return s;
+    }
+    case TT_CONTINUE: {
+        size_t pos = p->cur.pos;
+        p_advance(p);
+        Stmt *s = new_stmt(p, ST_CONTINUE, pos);
+        p_expect(p, TT_SEMI, "';' after 'continue'");
+        return s;
+    }
     case TT_SEMI: {
         size_t pos = p->cur.pos;
         p_advance(p);
