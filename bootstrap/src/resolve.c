@@ -1,6 +1,8 @@
 #define _POSIX_C_SOURCE 200809L
 #include "resolve.h"
 
+#include <stdio.h>
+
 typedef struct Scope {
     struct Scope *parent;
     VEC           names; /* Vec of char* (arena-owned) */
