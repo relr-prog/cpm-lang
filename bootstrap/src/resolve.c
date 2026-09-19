@@ -27,7 +27,7 @@ static const Intrinsic INTRINSICS[] = {
     { { "print_i64", 9 }, 1, { TY_I64, 0 } },
     { { "println_i64", 11 }, 1, { TY_I64, 0 } },
     { { "print_f64", 9 }, 1, { TY_F64, 0 } },
-    { { "println_f64", 12 }, 1, { TY_F64, 0 } },
+    { { "println_f64", 11 }, 1, { TY_F64, 0 } },
     { { "print_bool", 10 }, 1, { TY_BOOL, 0 } },
     { { "println_bool", 12 }, 1, { TY_BOOL, 0 } },
 };
